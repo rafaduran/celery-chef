@@ -31,7 +31,7 @@ end
 directory "#{node[:celery][:log_dir]}" do
   owner "#{node[:celery][:user]}"
   owner "#{node[:celery][:group]}"
-  mode 0640
+  mode 0755
   action :create
 end
 
