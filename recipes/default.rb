@@ -16,3 +16,44 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+include_recipe "python"
+
+python_pip "celery" do
+  virtualenv node[:celery][:virtualenv] if node[:celery][:virtualenv]
+  action :install
+end
+
+if node["celery"]["create_user"]
+  include_recipe "celery::user"
+end
+
+directory "#{node[:celery][:log_dir]}" do
+  owner "#{node[:celery][:user]}"
+  owner "#{node[:celery][:group]}"
+  mode 0640
+  action :create
+end
+
+cookbook_file "/etc/init.d/celery" do
+    source "etc/init.d/celery"
+    owner "root"
+    group "root"
+    mode 0750
+end
+
+template "/etc/init/celery.conf" do
+    source "etc/init/celery.conf.erb"
+    owner "root"
+    group "root"
+    mode 0750
+    notifies :restart, "service[celery]"
+end
+
+service "celery" do
+    provider Chef::Provider::Service::Upstart
+    enabled true
+    running true
+    supports :restart => true, :reload => true, :status => true
+    action [:enable, :start]
+end
