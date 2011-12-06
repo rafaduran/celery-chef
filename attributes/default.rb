@@ -17,6 +17,7 @@
 
 # Generic settings
 default[:celery][:log_dir] = "/var/log/celery"
+default[:celery][:log_level] = "info"
 default[:celery][:workers] = 1
 default[:celery][:events] = true
 default[:celery][:beat] = false
