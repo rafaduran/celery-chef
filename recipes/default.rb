@@ -35,11 +35,9 @@ directory "#{node[:celery][:log_dir]}" do
   action :create
 end
 
-cookbook_file "/etc/init.d/celery" do
-    source "etc/init.d/celery"
-    owner "root"
-    group "root"
-    mode 0750
+# ln -s /lib/init/upstart-job /etc/init.d/celery
+link "/lib/init/upstart-job" do
+  to "/etc/init.d/celery"
 end
 
 template "/etc/init/celery.conf" do
