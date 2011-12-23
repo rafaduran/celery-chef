@@ -29,17 +29,17 @@ attribute "celery/workers",
 attribute "celery/events",
   :display_name => "Events enabled",
   :description  => "Enables celery events notifications",
-  :default      => true
+  :default      => "true"
 
 attribute "celery/beat",
   :display_name => "Celerybeat enabled",
   :description  => "Enables celerybeat",
-  :default      => false
+  :default      => "false"
 
 attribute "celery/create_user",
   :display_name => "Create user",
   :description  => "Enables celery user creation",
-  :default      => false
+  :default      => "false"
 
 attribute "celery/user",
   :display_name => "Celery user",
@@ -54,4 +54,4 @@ attribute "celery/group",
 attribute "celery/virtualenv",
   :display_name => "Virtualenv",
   :description  => "Celery virtualenv where to be installed if provided",
-  :default      => false
+  :default      => "false"
