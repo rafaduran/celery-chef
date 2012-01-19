@@ -35,9 +35,11 @@ directory "#{node[:celery][:log_dir]}" do
   action :create
 end
 
-# ln -s /lib/init/upstart-job /etc/init.d/celery
-link "/lib/init/upstart-job" do
-  to "/etc/init.d/celery"
+directory "#{node[:celery][:working_dir]}" do
+  owner "#{node[:celery][:user]}"
+  owner "#{node[:celery][:group]}"
+  mode 0755
+  action :create
 end
 
 template "/etc/init/celery.conf" do
