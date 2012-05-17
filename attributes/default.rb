@@ -16,15 +16,15 @@
 #
 
 # Generic settings
-default[:celery][:log_dir] = "/var/log/celery"
-default[:celery][:log_level] = "info"
-default[:celery][:concurrency] = 2
-default[:celery][:workers] = node[:cpu][:total]
-default[:celery][:events] = true
-default[:celery][:beat] = false
-default[:celery][:create_user] = false
+default[:celery][:log_dir] = "/var/log/celeryd"
+# default[:celery][:log_level] = "info"
+# default[:celery][:concurrency] = 2
+# default[:celery][:workers] = node[:cpu][:total]
+# default[:celery][:events] = true
+# default[:celery][:beat] = false
+default[:celery][:create_user] = true
 default[:celery][:user] = "celery"
 default[:celery][:group] = "celery"
 default[:celery][:virtualenv] = false
-default[:celery][:pool] = "processes"
-default[:celery][:working_dir] = "/var/run/celery"
+# default[:celery][:pool] = "processes"
+default[:celery][:working_dir] = "/var/run/celeryd"
