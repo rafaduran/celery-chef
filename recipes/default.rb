@@ -28,14 +28,14 @@ if node["celery"]["create_user"]
   include_recipe "celery::user"
 end
 
-directory "/var/log/celeryd" do
+directory "#{node[:celery][:log_dir]}" do
   owner "#{node[:celery][:user]}"
   owner "#{node[:celery][:group]}"
   mode "0755"
   action :create
 end
 
-directory "/var/run/celeryd" do
+directory "#{node[:celery][:run_dir]}" do
   owner "#{node[:celery][:user]}"
   owner "#{node[:celery][:group]}"
   mode "0755"

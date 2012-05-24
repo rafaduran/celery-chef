@@ -1,0 +1,45 @@
+# Name of nodes to start, here we have a single node
+CELERYD_NODES="<%= node[:celery][:nodes].join(' ') %>"
+
+<% if node[:celery][:work_dir] %>
+# Where to chdir at start.
+CELERYD_CHDIR="<%= node[:celery][:work_dir] %>"
+<% end -%>
+
+# Python interpreter from environment.
+<% if node[:celery][:virtualenv] -%>
+ENV_PYTHON="<%= node[:celery][:virtualenv] %>/bin/python"
+<% else -%>
+ENV_PYTHON=""
+<% end -%>
+
+# Extra arguments to celeryd
+CELERYD_OPTS="<% node[:celery][:options].join(' ') %>"
+
+<% if node[:celery][:celeryconfig] -%>
+# Name of the celery config module.
+CELERY_CONFIG_MODULE="<%= node[:celery][:celeryconfig] %>"
+<% end -%>
+
+# %n will be replaced with the nodename.
+CELERYD_LOG_FILE="<%= node[:celery][:log_dir] %>/%n.log"
+CELERYD_PID_FILE="<%= node[:celery][:run_dir] %>/%n.pid"
+
+# Workers should run as an unprivileged user.
+CELERYD_USER="<%= node[:celery][:user] %>"
+CELERYD_GROUP="<%= node[:celery][:group] %>"
+
+<% if node[:celery][:django] -%>
+############################
+# Django specific settings #
+############################
+
+# How to call "manage.py celeryd_multi"
+CELERYD_MULTI="$ENV_PYTHON $CELERYD_CHDIR/<%= node[:celery][:dj_manage] %> celeryd_multi"
+
+# How to call "manage.py celeryctl"
+CELERYCTL="$ENV_PYTHON $CELERYD_CHDIR/<%= node[:celery][:dj_manage] %> celeryctl"
+
+# Name of the projects settings module.
+export DJANGO_SETTINGS_MODULE="<%= node[:celery][:dj_settings] %>"
+<% end -%>

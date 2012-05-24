@@ -15,16 +15,34 @@
 # limitations under the License.
 #
 
-# Generic settings
+# General settings
+default[:celery][:log_level] = "INFO"
+default[:celery][:nodes] = ["celery"]
+default[:celery][:celeryconfig] = false
+default[:celery][:options] = []
+default[:celery][:virtualenv] = false
+
+# User/group settings
+default[:celery][:create_user] = true
+default[:celery][:user] = "celery"
+default[:celery][:group] = "celery"
+
+# Path settings
+default[:celery][:run_dir] = "/var/run/celeryd"
 default[:celery][:log_dir] = "/var/log/celeryd"
-# default[:celery][:log_level] = "info"
+default[:celery][:work_dir] = false
+
+# Template settings
+default[:celery][:template_name] = "default.erb"
+default[:celery][:template_cookbook] = "celery"
+
+# Django settings
+default[:celery][:django] = false
+default[:celery][:dj_manage] = "manage.py"
+default[:celery][:dj_settings] = "settings"
+
 # default[:celery][:concurrency] = 2
 # default[:celery][:workers] = node[:cpu][:total]
 # default[:celery][:events] = true
 # default[:celery][:beat] = false
-default[:celery][:create_user] = true
-default[:celery][:user] = "celery"
-default[:celery][:group] = "celery"
-default[:celery][:virtualenv] = false
 # default[:celery][:pool] = "processes"
-default[:celery][:working_dir] = "/var/run/celeryd"
